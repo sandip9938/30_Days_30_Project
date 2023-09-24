@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TODO APP</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        box-sizing: border-box;
+      }
+      body {
+        background: linear-gradient(135deg, orange 60%, cyan);
+        color: white;
+      }
+      main {
+        width: 700px;
+        display: flex;
+        flex-direction: column;
+        height: 500px;
+        background: linear-gradient(45deg, red, blue);
+        padding: 10px;
+        color: white;
+        margin-left: 400px;
+        margin-top: 100px;
+        border-radius: 10px;
+        border: 10px solid purple;
+      }
+      .head {
+        text-align: center;
+      }
+      .mid {
+        text-align: center;
+      }
+      input {
+        height: 50px;
+        width: 500px;
+        outline: none;
+        border-radius: 5px;
+        border: 5px solid purple;
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+      }
+      button {
+        height: 60%;
+        width: 50px;
+        color: white;
+        background-color: blueviolet;
+        border-radius: 5px;
+        margin: 2px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: purple;
+      }
+      ul li {
+        list-style: none;
+        font-size: 18px;
+        padding: 12px 8px 12px 50px;
+        margin-top: 15px;
+        user-select: none;
+        cursor: pointer;
+        position: relative;
+      }
+      ul li::before {
+        content: "";
+        position: absolute;
+        height: 28px;
+        width: 28px;
+        border-radius: 50%;
+        background-image: url(./uc1.png);
+        background-size: cover;
+        background-position: center;
+        top: 10px;
+        left: 8px;
+      }
+      ul li.checked {
+        color: #eee9e9;
+        text-decoration: line-through;
+      }
+      ul li.checked::before {
+        background-image: url(./c.png);
+        background-size: cover;
+        background-position: center;
+      }
+      ul li span {
+        position: absolute;
+        right: 0;
+        top: 5px;
+        width: 40px;
+        height: 40px;
+        font-size: 22px;
+        color: #c1b6b6;
+        line-height: 40px;
+        text-align: center;
+      }
+      ul li span:hover {
+        background-color: #303030;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <div class="head">
+        <h1>TODO APP <img src="image.webp" alt="" /></h1>
+      </div>
+      <div class="mid">
+        <input
+          type="text"
+          id="input_task"
+          placeholder="Add your text..."
+        /><button onclick="addtask()" class="addBtn">Add</button>
+      </div>
+      <div class="add">
+        <ul id="list">
+          <!-- <li class="checked">Task 1</li>
+     <li>Task 2</li>
+    <li>Task 3</li>
+    <li>Task 4</li>
+    <li>Task 5</li> -->
+        </ul>
+      </div>
+    </main>
+    <script>
+      const list = document.getElementById("list");
+
+      const inputEl = document.getElementById("input_task");
+      addtask = () => {
+        if (inputEl.value === "") {
+          alert("You must write something please friends");
+        } else {
+          let li = document.createElement("li");
+          li.innerHTML = inputEl.value;
+          list.appendChild(li);
+          let span = document.createElement("span");
+          span.innerHTML = "\u00d7";
+          li.appendChild(span);
+        }
+        inputEl.value = " ";
+        savedata();
+      };
+      list.addEventListener(
+        "click",
+        function (e) {
+          if (e.target.tagName == "LI") {
+            e.target.classList.toggle("checked");
+            savedata();
+          } else if (e.target.tagName === "SPAN") {
+            e.target.parentElement.remove();
+            savedata();
+          }
+        },
+        false
+      );
+      function savedata() {
+        localStorage.setItem("data", list.innerHTML);
+      }
+      function showList() {
+        list.innerHTML = localStorage.getItem("data");
+      }
+      showList();
+    </script>
+  </body>
+</html>
