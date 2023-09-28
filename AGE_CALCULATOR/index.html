@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+body{
+    background-color: #212121;
+    color: white;
+}
+.container {
+    margin-left: 600px;
+}
+#result{
+    margin-left: 600px;
+}
+input{
+    border : none ;
+    width: 200px;
+    height: 30px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 20px;
+}
+button{
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <h1>AGE CALCULATOR</h1>
+<div class="input-box">
+    <input type="date" id="date">
+    <button onclick="calculateAge()">Calculator</button>
+</div>
+        </div>
+    </div>
+    <div id="result"></div>
+</body>
+<script>
+let userinput = document.getElementById("date")
+userinput.max= new Date().toISOString().split("T")[0]
+let result= document.getElementById("result")
+function calculateAge(){
+   let birthdate= new Date(userinput.value)
+   let d1 = birthdate.getDate()
+   let m1 = birthdate.getMonth()+1
+   let y1 = birthdate.getFullYear()
+
+   let today= new Date()
+    let d2 = today.getDate()
+    let m2= today.getMonth()+1
+     let y2 = today.getFullYear()
+
+let d3,m3,y4
+  y3 = y2-y1
+  if(m2>=m1){
+    m3=m2-m1
+  }else{
+    y3--
+    m3=12+m2-m1
+  }
+  if(d2>+d1){
+    d3=d2 - d1
+  }else{
+   m3--
+   d3=getdaysIsmnth(y1,m1)+d2-d1
+if(m3<0){
+    m3=11
+    y3--
+}
+result.innerHTML=`Your age is ${y3} years , ${m3} monts , ${d3} days `
+  }
+
+console.log(y3,m3,d3);
+
+}
+function getdaysIsmnth(year,month){
+    return  (new Date(`${year}-${month}-01`)).getDate();
+}
+</script>
+</html>
